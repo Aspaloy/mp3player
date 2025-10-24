@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Tick — Статистика</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+  <div class="header">
+    <div class="brand"><h1>Tick</h1></div>
+    <div class="nav">
+      <a href="/">Главная</a><a href="/playlists">Плейлисты</a><a href="/albums">Альбомы</a><a class="active" href="/stats">Статистика</a><a href="/settings">Настройки</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h2>Статистика прослушиваний</h2>
+      <div id="statsArea" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+<script>
+  async function loadStats(){
+    const r = await fetch('/api/stats'); const data = await r.json();
+    const area = document.getElementById('statsArea');
+    area.innerHTML = `<h3>Топ прослушиваемых</h3>`;
+    data.topPlayed.forEach(t=>{
+      const row = document.createElement('div'); row.className='row'; row.innerHTML = `<div>${t.title} — ${t.artist}</div><div style="color:#9aa3b2">${t.plays} ▶</div>`;
+      area.appendChild(row);
+    });
+    area.innerHTML += `<h3 style="margin-top:14px">Последние скачивания</h3>`;
+    if(!data.lastDownloaded.length) area.innerHTML += `<div style="color:#9aa3b2">Никто ничего не скачивал.</div>`;
+    data.lastDownloaded.forEach(t=>{
+      const date = new Date(t.lastDownloaded); const ds = date.toLocaleString();
+      const row = document.createElement('div'); row.className='row'; row.innerHTML = `<div>${t.title}</div><div style="font-size:12px;color:#9aa3b2">${ds}</div>`;
+      area.appendChild(row);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', loadStats);
+</script>
+</body>
+</html>
