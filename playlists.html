@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Tick — Плейлисты</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+  <div class="header">
+    <div class="brand"><h1>Tick</h1></div>
+    <div class="nav">
+      <a href="/">Главная</a>
+      <a class="active" href="/playlists">Плейлисты</a>
+      <a href="/albums">Альбомы</a>
+      <a href="/stats">Статистика</a>
+      <a href="/settings">Настройки</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>Плейлисты</h2>
+      <div id="playlistArea" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <script>
+    async function load(){
+      const r = await fetch('/api/playlists'); const data = await r.json();
+      const area = document.getElementById('playlistArea');
+      data.playlists.forEach(p=>{
+        const card = document.createElement('div');
+        card.className='card';
+        card.style.marginBottom='10px';
+        card.innerHTML = `<h3>${p.name}</h3><div style="font-size:13px;color:#9aa3b2">${p.items.length} треков</div>`;
+        const list = document.createElement('div');
+        p.items.forEach(t=>{
+          const row = document.createElement('div'); row.className='row'; row.style.marginTop='8px';
+          row.innerHTML = `<div style="display:flex;gap:10px;align-items:center"><div class="track-thumb"><img src="${t.cover}"></div><div><b>${t.title}</b><div style="font-size:13px;color:#9aa3b2">${t.artist}</div></div></div><div><button class="small" onclick="playTrack('${t.id}',event)">Play</button></div>`;
+          list.appendChild(row);
+        });
+        card.appendChild(list);
+        area.appendChild(card);
+      });
+    }
+    async function playTrack(id,ev){ ev?.stopPropagation(); await fetch('/api/play/'+id,{method:'POST'}); alert('Played'); }
+    window.addEventListener('DOMContentLoaded', load);
+  </script>
+</body>
+</html>

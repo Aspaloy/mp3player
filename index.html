@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tick — Demo</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><h1>Tick</h1><div style="color:#9aa3b2">Музыкальный плеер — Demo</div></div>
+    <div class="nav">
+      <a class="active" href="/">Главная</a>
+      <a href="/playlists">Плейлисты</a>
+      <a href="/albums">Альбомы</a>
+      <a href="/stats">Статистика</a>
+      <a href="/settings">Настройки</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid">
+      <div>
+        <div class="side-card">
+          <h3>Плейлисты</h3>
+          <div id="sidebarPlaylists" style="margin-top:10px"></div>
+        </div>
+
+        <div class="side-card" style="margin-top:12px">
+          <h3>PRO</h3>
+          <div style="font-size:13px;color:#9aa3b2">7 дней пробного PRO. Эквалайзер, 432Hz, экспорт — в PRO.</div>
+          <div style="margin-top:10px"><button class="button" onclick="fetch('/api/upgrade',{method:'POST'}).then(()=>alert('PRO (демо) включён'))">Получить PRO (демо)</button></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>Треки</h2>
+          <div id="tracksContainer" style="margin-top:12px"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Особые функции (компактно)</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="small" onclick="alert('Открыть эквалайзер (демо)')">Эквалайзер</button>
+            <button class="small" onclick="alert('Режим Nature (432 Hz) применится при экспорте')">Nature (432Hz)</button>
+            <button class="small" onclick="alert('Управление тоном и тиком (демо)')">Тон / Тик</button>
+            <button class="small" onclick="alert('Экспорт изменённой музыки будет доступен в PRO')">Экспорт</button>
+          </div>
+        </div>
+
+        <div class="footer">Tick — демонстрация. Для мобильной версии создадим Android (Java) клиент, использующий этот API.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

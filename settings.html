@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Tick — Настройки</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+  <div class="header"><div class="brand"><h1>Tick</h1></div><div class="nav"><a href="/">Главная</a><a href="/playlists">Плейлисты</a><a href="/albums">Альбомы</a><a href="/stats">Статистика</a><a class="active" href="/settings">Настройки</a></div></div>
+
+  <div class="container">
+    <div class="grid">
+      <div class="side-card">
+        <h3>Управление PRO и триал</h3>
+        <div style="font-size:13px;color:#9aa3b2">Пробный период 7 дней. Все особые функции (эквалайзер, 432Hz, экспорт) доступны в PRO.</div>
+        <div style="margin-top:10px"><button class="button" onclick="fetch('/api/upgrade',{method:'POST'}).then(()=>alert('PRO включён (демо)'))">Активировать PRO (демо)</button></div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Эквалайзер (компакт)</h3>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="range" min="-12" max="12" step="1" value="0" id="eqBass"><label style="font-size:13px;color:#9aa3b2">Bass</label>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+            <input type="range" min="-12" max="12" step="1" value="0" id="eqMid"><label style="font-size:13px;color:#9aa3b2">Mid</label>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+            <input type="range" min="-12" max="12" step="1" value="0" id="eqTreble"><label style="font-size:13px;color:#9aa3b2">Treble</label>
+          </div>
+          <div style="margin-top:10px"><button class="small" onclick="alert('Настройки эквалайзера применяются на стороне плеера (демо)')">Применить</button></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Режим Nature (432 Hz)</h3>
+          <div style="font-size:13px;color:#9aa3b2">При активации экспортирует трек, сдвигая тональность 440→432 Hz.</div>
+          <div style="margin-top:10px"><button class="small" onclick="alert('432Hz режим активен при экспорте (демо)')">Включить</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
